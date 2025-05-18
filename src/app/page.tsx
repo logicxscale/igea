@@ -31,7 +31,7 @@ export default function Home() {
               Username Instagram
             </div>
             <div className="card-body">
-              <form onSubmit={handleSubmit}>
+              <form onSubmit={handleSubmit} method="post">
               <div className="input-group mb-3">
                 <span className="input-group-text" id="basic-addon1">@</span>
                 <input onChange={e => setInput(e.target.value)} type="text" className="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"></input>
