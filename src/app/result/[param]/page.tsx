@@ -75,7 +75,16 @@ export default function Home() {
                         <Image src={data.profile.profile_pic_url} className="card-img-top" alt="Profile Picture" width={600} height={0} style={{height: 'auto'}}/>
                         <div className="card-body">
                             <h5 className="card-title">@{data.profile.username} - {data.profile.full_name}</h5>
-                            <p className="card-text">{data.profile.bio}</p>
+                            <p className="card-text">
+                                <figure>
+                                    <blockquote className="blockquote">
+                                        <p>{data.profile.bio}</p>
+                                    </blockquote>
+                                    <figcaption className="blockquote-footer">
+                                        by <cite title="Source Title">@{data.profile.username}</cite>
+                                    </figcaption>
+                                </figure>
+                            </p>
                             <div className="row pb-3">
                                 <div className="col">
                                     <p className="card-text">Followers: {data.profile.followers}</p>
