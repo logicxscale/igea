@@ -1,6 +1,6 @@
 from dotenv import load_dotenv
 import os
-from flask import Flask
+from flask import Flask, jsonify
 # from flask_cors import CORS
 
 from instagram import InstagramProfile
@@ -26,7 +26,7 @@ def index(username):
     '  PENTING: Berikan HANYA teks analisis, tanpa kata pengantar atau pembuka apapun seperti "Oke, siap" atau "Berikut analisis untuk". Langsung mulai dengan analisisnya. sesekali gunakan emoticon.',
     ' Gunakan Bahasa Gaul, gunakan kata kata yang bisa dipahami.']
 
-    return {"profile": test.get_profile_info(), "content": test2.generate_content("".join(prompt))}
+    return jsonify({"profile": test.get_profile_info(), "content": test2.generate_content("".join(prompt))})
 
 if __name__ == '__main__': 
     if os.getenv("DEBUG"):        
