@@ -5,11 +5,13 @@ import styles from "../../page.module.css";
 
 import { useRef, useEffect, useState } from 'react';
 import { useParams } from "next/navigation";
+import html2canvas from 'html2canvas';
 
 export default function Home() {
   const params = useParams();
   const [data, setData] = useState(null);
   const textRef = useRef<HTMLParagraphElement>(null);
+  const divRef = useRef<HTMLDivElement>(null);
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   useEffect(() => {
@@ -26,7 +28,7 @@ export default function Home() {
         <div className={`${styles.page}`}>
             <main className={`${styles.main}`}>
                 <div className="spinner-border text-primary" role="status">
-                    <span className="visually-hidden">Loading...</span>
+                    <span>Loading...</span>
                 </div>
             </main>
         </div>
@@ -41,8 +43,19 @@ export default function Home() {
     }
   };
 
+  const handleScreenshot = async () => {
+    if (!divRef.current) return;
+    const canvas = await html2canvas(divRef.current);
+    const dataUrl = canvas.toDataURL("image/png");
+
+    const link = document.createElement("a");
+    link.href = dataUrl;
+    link.download = "screenshot.png";
+    link.click();    
+  };
+
   return (
-    <div className={`${styles.page}`}>
+    <div ref={divRef} className={`${styles.page}`}>
       <h1 className={`center`}>Hasil IG <i className="bi bi-instagram"></i> Emotion Analyzer</h1>
       <main className={`${styles.main}`}>
         <div className="container">
@@ -84,9 +97,18 @@ export default function Home() {
                         </div>
                         <div className="card-body">
                             <p ref={textRef} className="card-text text-break lh-lg" style={{ whiteSpace: 'pre-line' }}>{data.content}</p>
-                            <button onClick={handleCopy} className="btn btn-primary">Copy</button>
                         </div>
+                        <div className="card-footer">
+                            <div className="row">
+                                <div className="col-1">
+                                    <button onClick={handleCopy} className="btn btn-primary">Copy</button>
+                                </div>
+                                <div className="col-1">
+                                    <button onClick={handleScreenshot} className="btn btn-primary">Save</button>
+                                </div>
+                            </div>
                         </div>
+                    </div>
                 </div>
             </div>
         </div>

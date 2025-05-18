@@ -20,8 +20,7 @@ def index(username):
     " dan dengan jumlah followers "+str(test.get_profile_info()["followers"])+" dan jumlah following "+str(test.get_profile_info()["following"])+" dan jumlah post "+str(test.get_profile_info()["posts"]),
     " dan dari semua informasi ini, apa yang bisa kita simpulkan tentang "+test.get_profile_info()["username"]+"?",
     '  PENTING: Berikan HANYA teks analisis, tanpa kata pengantar atau pembuka apapun seperti "Oke, siap" atau "Berikut analisis untuk". Langsung mulai dengan analisisnya. sesekali gunakan emoticon.',
-    ' Gunakan Bahasa Gaul, gunakan kata kata yang bisa dipahami.',
-    ' dan jangan gunakan bullet point atau numbering, gunakan paragraf biasa saja',]
+    ' Gunakan Bahasa Gaul, gunakan kata kata yang bisa dipahami.']
 
     return {"profile": test.get_profile_info(), "content": test2.generate_content("".join(prompt))}
 

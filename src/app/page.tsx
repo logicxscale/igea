@@ -4,7 +4,7 @@ import Image from "next/image";
 import styles from "./page.module.css";
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
+
 
 export default function Home() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
@@ -12,11 +12,13 @@ export default function Home() {
   const handleClick = () => {
     if (username.trim() !== "") {
       window.location.href = `${baseUrl}/result/${username}`;
+    } else {  
+      alert("Please enter a username");
     }
   };
 
   return (
-    <div className={styles.page}>
+    <div className={styles.page} style={{ paddingTop: "0px", marginTop: "0px" }}>
       <main className={styles.main}>
         <h1 className={`center`}>EmotionGram <i className="bi bi-instagram"></i></h1>
         <h3 className={`center`}>Coba AI Biar Analisi Kepribadian Kamu Lewat Instagram, Gas!</h3>
