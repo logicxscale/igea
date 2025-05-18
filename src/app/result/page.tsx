@@ -20,7 +20,15 @@ export default function Home() {
   }, []);
 
   if (!data) {
-    return <div>Loading...</div>;
+    return (
+        <div className={`${styles.page}`}>
+            <main className={`${styles.main}`}>
+                <div className="spinner-border text-primary" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>
+            </main>
+        </div>
+    );
   }
 
   const handleCopy = () => {
