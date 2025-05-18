@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import "bootstrap/dist/css/bootstrap.min.css";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import BootstrapClient from "./components/BootstrapClient";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,8 +26,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable}`} data-bs-theme="dark">
+        <nav className="navbar bg-body-tertiary">
+          <div className="container-fluid">
+            <a className="navbar-brand" href="#">
+              IG Emotion Analyzer
+            </a>
+          </div>
+        </nav>
+        <div className="container">
+          {children}
+        </div>
+        <footer className="footer mt-auto py-3 bg-body-tertiary">
+          <div className="container">
+            <p className="text-center">
+              Made with ❤️ by <a href="">{"@bagusa4"}</a>
+            </p>    
+          </div>          
+        </footer>
+        <BootstrapClient />
       </body>
     </html>
   );
