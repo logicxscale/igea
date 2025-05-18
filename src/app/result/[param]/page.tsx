@@ -7,9 +7,22 @@ import { useRef, useEffect, useState } from 'react';
 import { useParams } from "next/navigation";
 import html2canvas from 'html2canvas';
 
+type Data = {
+    profile: {
+        username: string;
+        full_name: string;
+        profile_pic_url: string;
+        bio: string;
+        followers: number;
+        following: number;
+        posts: number;
+    };
+    content: string;
+}
+
 export default function Home() {
   const params = useParams();
-  const [data, setData] = useState(null);
+  const [data, setData] = useState(null as Data | null);
   const textRef = useRef<HTMLParagraphElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -17,7 +30,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchData() {
         const result = await fetch(`${baseUrl}/api/v1/get_content/${params.param}`, {method: 'POST', headers: {'Content-Type': 'application/json'}});
-        const data = await result.json();
+        const data: Data = await result.json();
         setData(data);
     }
     fetchData();
