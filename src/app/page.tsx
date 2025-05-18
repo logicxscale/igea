@@ -3,15 +3,19 @@
 import Image from "next/image";
 import styles from "./page.module.css";
 
-import { useState } from 'react';
-
+import React, { useState } from 'react';
+import { useRouter } from "next/navigation";
 
 export default function Home() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+
   const [username, setInput] = useState("");
-  const handleClick = () => {
+  const router = useRouter();
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+
     if (username.trim() !== "") {
-      window.location.href = `${baseUrl}/result/${username}`;
+      router.push(`${baseUrl}/result/${username}`);
     } else {  
       alert("Please enter a username");
     }
@@ -27,11 +31,13 @@ export default function Home() {
               Username Instagram
             </div>
             <div className="card-body">
+              <form onSubmit={handleSubmit}>
               <div className="input-group mb-3">
                 <span className="input-group-text" id="basic-addon1">@</span>
                 <input onChange={e => setInput(e.target.value)} type="text" className="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1"></input>
               </div>
-              <button onClick={handleClick} className="btn btn-primary">Analyze</button>
+              <button type="submit" className="btn btn-primary">Analyze</button>
+              </form>
             </div>
           </div>
         <div className="row row-cols-1 row-cols-md-3 g-4">

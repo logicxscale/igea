@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_cors import CORS
+# from flask_cors import CORS
 
 from instagram import InstagramProfile
 from gemini import Gemini
@@ -9,7 +9,7 @@ test = InstagramProfile()
 test2 = Gemini()
 
 app = Flask(__name__)
-CORS(app)
+# CORS(app)
 
 @app.route('/api/v1/get_content/<username>', methods=['POST'])
 def index(username):

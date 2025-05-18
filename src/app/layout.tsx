@@ -35,7 +35,7 @@ export default function RootLayout({
             </a>
           </div>
         </nav>
-        <div className="container">
+        <div className="container bs-dark">
           {children}
         </div>
         <footer className="footer mt-auto py-3 bg-body-tertiary">
