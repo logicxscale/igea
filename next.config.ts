@@ -14,8 +14,13 @@ const nextConfig: NextConfig = {
     ]
   },
   images: {
-    domains: ['instagram.fjog3-1.fna.fbcdn.net'],
-    remotePatterns: [new URL('https://instagram.fjog3-1.fna.fbcdn.net/**')]
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'instagram.fjog3-1.fna.fbcdn.net',
+        pathname: '/**',
+      }
+    ]
   },
 };
 
