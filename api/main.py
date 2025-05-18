@@ -1,8 +1,12 @@
+from dotenv import load_dotenv
+import os
 from flask import Flask
 # from flask_cors import CORS
 
 from instagram import InstagramProfile
 from gemini import Gemini
+
+load_dotenv()
 
 test = InstagramProfile()
 
@@ -24,5 +28,8 @@ def index(username):
 
     return {"profile": test.get_profile_info(), "content": test2.generate_content("".join(prompt))}
 
-if __name__ == '__main__':  
-    app.run(debug=True)
+if __name__ == '__main__': 
+    if os.getenv("DEBUG"):        
+        app.run(debug=True)
+    else:
+        app.run()
