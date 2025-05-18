@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import BootstrapClient from "./components/BootstrapClient";
@@ -29,8 +30,8 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`} data-bs-theme="dark">
         <nav className="navbar bg-body-tertiary">
           <div className="container-fluid">
-            <a className="navbar-brand" href="#">
-              IG Emotion Analyzer
+            <a className="navbar-brand" href="/">
+              EmotionGram <i className="bi bi-instagram"></i>
             </a>
           </div>
         </nav>
