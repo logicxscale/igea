@@ -1,18 +1,20 @@
 'use client';
 
 import Image from "next/image";
-import styles from "../page.module.css";
+import styles from "../../page.module.css";
 
 import { useRef, useEffect, useState } from 'react';
+import { useParams } from "next/navigation";
 
 export default function Home() {
+  const params = useParams();
   const [data, setData] = useState(null);
   const textRef = useRef<HTMLParagraphElement>(null);
 
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   useEffect(() => {
     async function fetchData() {
-        const result = await fetch(`${baseUrl}/api/v1/get_content/bagusa4`, {method: 'POST', headers: {'Content-Type': 'application/json'}});
+        const result = await fetch(`${baseUrl}/api/v1/get_content/${params.param}`, {method: 'POST', headers: {'Content-Type': 'application/json'}});
         const data = await result.json();
         setData(data);
     }
