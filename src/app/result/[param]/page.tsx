@@ -34,7 +34,7 @@ export default function Home() {
   useEffect(() => {
     async function fetchData() {
         try {
-            const result = await axios.post<Data>(`${baseUrl}/api/v1/get_content/`, {
+            const result = await axios.post<Data>(`${baseUrl}/api/index/`, {
                 username: params.param,
             }, {
                 headers: {'Content-Type': 'application/json'},

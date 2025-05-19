@@ -15,7 +15,7 @@ test2 = Gemini()
 app = Flask(__name__)
 CORS(app, origins=[os.getenv("NEXT_PUBLIC_BASE_URL")], supports_credentials=True)
 
-@app.route('/api/v1/get_content/', methods=['POST', 'GET'])
+@app.route('/api/index/', methods=['POST', 'GET'])
 def index():
     try:
         data = request.json        
