@@ -70,7 +70,7 @@ test2 = Gemini()
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/api/get_content/', methods=['POST', 'GET'])
+@app.route('/api/get_content', methods=['POST'])
 def index():
     try:
         data = request.json        
