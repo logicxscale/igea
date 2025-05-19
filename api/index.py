@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 import os
 from flask import Flask, jsonify, request
-# from flask_cors import CORS
+from flask_cors import CORS
 
 from instagram import InstagramProfile
 from gemini import Gemini
@@ -13,7 +13,7 @@ test = InstagramProfile()
 test2 = Gemini()
 
 app = Flask(__name__)
-# CORS(app, origins=[os.getenv("NEXT_PUBLIC_BASE_URL")], supports_credentials=True)
+CORS(app, origins=[os.getenv("NEXT_PUBLIC_BASE_URL")], supports_credentials=True)
 
 @app.route('/api/get_content/', methods=['POST', 'GET'])
 def index():
@@ -39,8 +39,8 @@ def index():
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
-# if __name__ == '__main__': 
-#     if os.getenv("DEBUG"):        
-#         app.run(debug=True)
-#     else:
-#         app.run()
+if __name__ == '__main__': 
+    if os.getenv("DEBUG"):        
+        app.run(debug=True)
+    else:
+        app.run()
