@@ -1,4 +1,10 @@
 {
+  "functions": {
+    "api/index.py": {
+      "runtime": "python3.11",
+      "includedFiles": ["api/instagram.py", "api/gemini.py"],
+    }
+  },
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/api/index" }
   ]
