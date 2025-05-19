@@ -18,6 +18,7 @@ type Data = {
         posts: number;
     };
     content: string;
+    error: string
 }
 
 export default function Home() {
@@ -29,8 +30,20 @@ export default function Home() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   useEffect(() => {
     async function fetchData() {
-        const result = await fetch(`${baseUrl}/api/v1/get_content/${params.param}`, {method: 'POST', headers: {'Content-Type': 'application/json'}});
+        const result = await fetch(`${baseUrl}/api/v1/get_content/`, {
+            method: 'POST', 
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ username: params.param })
+        });
         const data: Data = await result.json();
+
+        if (!result.ok) {
+            alert("Gagal mendapatkan data, silahkan coba lagi");
+            return;
+        } else if (data.error) {
+            alert(data.error);
+            return;
+        }
         setData(data);
     }
     fetchData();
