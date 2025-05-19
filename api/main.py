@@ -13,7 +13,7 @@ test = InstagramProfile()
 test2 = Gemini()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=[os.getenv("NEXT_PUBLIC_BASE_URL")], supports_credentials=True)
 
 @app.route('/api/v1/get_content/', methods=['POST'])
 def index():
@@ -27,7 +27,14 @@ def index():
         '  PENTING: Berikan HANYA teks analisis, tanpa kata pengantar atau pembuka apapun seperti "Oke, siap" atau "Berikut analisis untuk". Langsung mulai dengan analisisnya. sesekali gunakan emoticon.',
         ' Gunakan Bahasa Gaul, gunakan kata kata yang bisa dipahami.']
 
-        return jsonify({"profile": test.get_profile_info(), "content": test2.generate_content("".join(prompt))})
+        return jsonify({
+            "statusCode": 200,
+            "headers": { "Content-Type": "application/json" },
+            "body": {
+                "profile": test.get_profile_info(), 
+                "content": test2.generate_content("".join(prompt))
+            }
+        })
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 

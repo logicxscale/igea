@@ -7,23 +7,25 @@ import { useRef, useEffect, useState } from 'react';
 import { useParams } from "next/navigation";
 import html2canvas from 'html2canvas';
 
-type Data = {
-    profile: {
-        username: string;
-        full_name: string;
-        profile_pic_url: string;
-        bio: string;
-        followers: number;
-        following: number;
-        posts: number;
-    };
-    content: string;
-    error: string
+interface Data {
+    body: {
+        profile: {
+            username: string;
+            full_name: string;
+            profile_pic_url: string;
+            bio: string;
+            followers: number;
+            following: number;
+            posts: number;
+        };
+        content: string;
+        error: string;    
+    }
 }
 
 export default function Home() {
   const params = useParams();
-  const [data, setData] = useState(null as Data | null);
+  const [data, setData] = useState<Data | undefined>();
   const textRef = useRef<HTMLParagraphElement>(null);
   const divRef = useRef<HTMLDivElement>(null);
 
@@ -40,8 +42,8 @@ export default function Home() {
         if (!result.ok) {
             alert("Gagal mendapatkan data, silahkan coba lagi");
             return;
-        } else if (data.error) {
-            alert(data.error);
+        } else if (data.body.error) {
+            alert(data.body.error);
             return;
         }
         setData(data);
@@ -96,30 +98,30 @@ export default function Home() {
                 <div className="col-4">
                     <div className="card">
                         <div className="card-header">
-                            <i className="bi bi-person-circle"></i> Profile @{data.profile.username}
+                            <i className="bi bi-person-circle"></i> Profile @{data.body.profile.username}
                         </div>
-                        <Image src={data.profile.profile_pic_url} className="card-img-top" alt="Profile Picture" width={600} height={0} style={{height: 'auto'}}/>
+                        <Image src={data.body.profile.profile_pic_url} className="card-img-top" alt="Profile Picture" width={600} height={0} style={{height: 'auto'}}/>
                         <div className="card-body">
-                            <h5 className="card-title">@{data.profile.username} - {data.profile.full_name}</h5>
-                            <p className="card-text">
+                            <h5 className="card-title">@{data.body.profile.username} - {data.body.profile.full_name}</h5>
+                            <div className="card-text">
                                 <figure>
                                     <blockquote className="blockquote">
-                                        <p>{data.profile.bio}</p>
+                                        <p>{data.body.profile.bio}</p>
                                     </blockquote>
                                     <figcaption className="blockquote-footer">
-                                        by <cite title="Source Title">@{data.profile.username}</cite>
+                                        by <cite title="Source Title">@{data.body.profile.username}</cite>
                                     </figcaption>
                                 </figure>
-                            </p>
+                            </div>
                             <div className="row pb-3">
                                 <div className="col">
-                                    <p className="card-text">Followers: {data.profile.followers}</p>
+                                    <p className="card-text">Followers: {data.body.profile.followers}</p>
                                 </div>
                                 <div className="col">
-                                    <p className="card-text">Following: {data.profile.following}</p>
+                                    <p className="card-text">Following: {data.body.profile.following}</p>
                                 </div>
                                 <div className="col">
-                                    <p className="card-text">Posts: {data.profile.posts}</p>
+                                    <p className="card-text">Posts: {data.body.profile.posts}</p>
                                 </div>
                             </div>
                         </div>
@@ -131,7 +133,7 @@ export default function Home() {
                             <i className="bi bi-lightbulb-fill"></i> Hasil Analyze
                         </div>
                         <div className="card-body">
-                            <p ref={textRef} className="card-text text-break lh-lg" style={{ whiteSpace: 'pre-line' }}>{data.content}</p>
+                            <p ref={textRef} className="card-text text-break lh-lg" style={{ whiteSpace: 'pre-line' }}>{data.body.content}</p>
                         </div>
                         <div className="card-footer">
                             <div className="row">
