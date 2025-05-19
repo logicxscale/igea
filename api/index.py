@@ -73,7 +73,10 @@ CORS(app)
 @app.route('/api/get_content', methods=['POST'])
 def index():
     try:
-        data = request.json        
+        data = request.get_json() 
+        if not data or 'username' not in data:
+            return jsonify({"error": "Username is required"}), 400
+
         test.set_username(data.get('username'))
 
         prompt = ["Berikan saya mengenai emosi atau perasaan dari pengguna Instagram ini",
