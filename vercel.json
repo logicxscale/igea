@@ -2,7 +2,7 @@
   "functions": {
     "api/index.py": {
       "runtime": "python3.11",
-      "includedFiles": ["api/instagram.py", "api/gemini.py"],
+      "includedFiles": ["api/instagram.py", "api/gemini.py"]
     }
   },
   "rewrites": [
