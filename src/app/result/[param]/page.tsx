@@ -6,6 +6,7 @@ import styles from "../../page.module.css";
 import { useRef, useEffect, useState } from 'react';
 import { useParams } from "next/navigation";
 import html2canvas from 'html2canvas';
+import axios from "axios";
 
 interface Data {
     body: {
@@ -32,21 +33,25 @@ export default function Home() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
   useEffect(() => {
     async function fetchData() {
-        const result = await fetch(`${baseUrl}/api/v1/get_content/`, {
-            method: 'POST', 
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ username: params.param })
-        });
-        const data: Data = await result.json();
+        try {
+            const result = await axios.post<Data>(`${baseUrl}/api/v1/get_content/`, {
+                username: params.param,
+            }, {
+                headers: {'Content-Type': 'application/json'},
+            });
 
-        if (!result.ok) {
+            const data: Data = result.data;
+
+            if (data.body?.error) {
+                alert("Gagal mendapatkan data, silahkan coba lagi"+" "+data.body.error);
+                return;
+            }
+            
+            setData(data);
+        } catch (error) {
+            console.error("Error fetching data:", error);
             alert("Gagal mendapatkan data, silahkan coba lagi");
-            return;
-        } else if (data.body.error) {
-            alert(data.body.error);
-            return;
         }
-        setData(data);
     }
     fetchData();
   }, []);
@@ -137,10 +142,10 @@ export default function Home() {
                         </div>
                         <div className="card-footer">
                             <div className="row">
-                                <div className="col-1">
+                                <div className="col-2">
                                     <button onClick={handleCopy} className="btn btn-primary">Copy</button>
                                 </div>
-                                <div className="col-1">
+                                <div className="col-2">
                                     <button onClick={handleScreenshot} className="btn btn-primary">Save</button>
                                 </div>
                             </div>
