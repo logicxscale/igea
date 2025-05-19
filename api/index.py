@@ -3,10 +3,65 @@ import os
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
-from instagram import InstagramProfile
-from gemini import Gemini
-
 load_dotenv()
+
+import instaloader
+class InstagramProfile:
+    def __init__(self):
+        self.loader = instaloader.Instaloader()
+    
+    def set_username(self, username): 
+        self.username = username
+        self.profile = instaloader.Profile.from_username(self.loader.context, username)
+
+    def get_profile_info(self) -> dict:
+        return {
+            "username": self.profile.username,
+            "full_name": self.profile.full_name,
+            "bio": self.profile.biography,
+            "followers": self.profile.followers,
+            "following": self.profile.followees,
+            "posts": self.profile.mediacount,
+            "private": self.profile.is_private,
+            "verified": self.profile.is_verified,
+            "external_url": self.profile.external_url,
+            "profile_pic_url": self.profile.profile_pic_url
+        }
+    
+    def get_posts(self, num_posts=6) -> list:
+        posts = []
+        for post in self.profile.get_posts():
+            if len(posts) >= num_posts:
+                break
+            posts.append({                
+                "likes": post.likes,                
+                "caption": post.caption,
+                "date": post.date
+            })
+        return posts
+    
+    def get_profile_instance(self):
+        return self.profile
+    def get_loader_instance(self):
+        return self.loader
+    
+from google import genai
+class Gemini:
+    def __init__(self):
+        self.api_key = os.getenv("GEMINI_API_KEY")
+        self.client = genai.Client(api_key=self.api_key)
+
+    def generate_content(self, prompt: str, model: str = "gemini-2.0-flash") -> str:
+        response = self.client.models.generate_content(
+            model=model,
+            contents=prompt
+        )
+        return response.text
+    
+    def get_api_key(self):
+        return self.api_key
+    def get_client(self):
+        return self.client
 
 test = InstagramProfile()
 
