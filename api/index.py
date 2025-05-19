@@ -13,7 +13,7 @@ test = InstagramProfile()
 test2 = Gemini()
 
 app = Flask(__name__)
-CORS(app, origins=[os.getenv("NEXT_PUBLIC_BASE_URL")], supports_credentials=True)
+CORS(app)
 
 @app.route('/api/get_content/', methods=['POST', 'GET'])
 def index():
