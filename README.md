@@ -1,5 +1,7 @@
 # 📸 IG Emotion Analyzer
 
+![alt text](https://github.com/logicxscale/igea/blob/main/screenshot.png?raw=true)
+
 **IG Emotion Analyzer** adalah aplikasi berbasis web yang memungkinkan pengguna untuk menganalisis kepribadian seseorang berdasarkan profil Instagram mereka, menggunakan kecerdasan buatan (AI) dari **Gemini**. Cukup masukkan username Instagram, dan sistem akan melakukan scraping data publik dan memberikan ringkasan kepribadian secara otomatis.
 
 ---
