@@ -19,6 +19,11 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'instagram.fjog3-1.fna.fbcdn.net',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'instagram.fagc3-2.fna.fbcdn.net',
+        pathname: '/**',
       }
     ]
   },

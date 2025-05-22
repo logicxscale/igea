@@ -5,45 +5,58 @@ from flask_cors import CORS
 
 load_dotenv()
 
-import instaloader
+from apify_client import ApifyClient
 class InstagramProfile:
     def __init__(self):
-        self.loader = instaloader.Instaloader()
+        self.client = ApifyClient(os.getenv("APIFY_API_TOKEN"))
+        self.run = None
     
     def set_username(self, username): 
         self.username = username
-        self.profile = instaloader.Profile.from_username(self.loader.context, username)
+
+    def fetch_profile(self):
+        try:
+            # Siapkan input untuk actor Instagram Scraper
+            run_input = {
+                "directUrls": [f"https://www.instagram.com/{self.username}/"],
+                "resultsType": "details",         # <-- ambil data profil, bukan postingan
+                "resultsLimit": 1,
+                "searchType": "user",
+                "searchLimit": 1,
+                "addParentData": False,
+            }
+
+            # Jalankan actor Instagram scraper
+            run = self.client.actor("shu8hvrXbJbY3Eb9W").call(run_input=run_input)
+            self.run = run
+        except Exception as e: 
+            print(f"Error fetching profile: {e}")
 
     def get_profile_info(self) -> dict:
-        return {
-            "username": self.profile.username,
-            "full_name": self.profile.full_name,
-            "bio": self.profile.biography,
-            "followers": self.profile.followers,
-            "following": self.profile.followees,
-            "posts": self.profile.mediacount,
-            "private": self.profile.is_private,
-            "verified": self.profile.is_verified,
-            "external_url": self.profile.external_url,
-            "profile_pic_url": self.profile.profile_pic_url
-        }
+        if not self.run:
+            self.fetch_profile()
+        
+        for item in self.client.dataset(self.run["defaultDatasetId"]).iterate_items():
+            return {
+                "username": item.get("username"),
+                "full_name": item.get("fullName"),
+                "bio": item.get("biography"),
+                "followers": item.get("followersCount"),
+                "following": item.get("followsCount"),
+                "posts": item.get("postsCount"),
+                "private": item.get("isPrivate"),
+                "verified": item.get("isVerified"),
+                "external_url": item.get("externalUrl"),
+                "profile_pic_url": item.get("profilePicUrlHd") or item.get("profilePicUrl")
+            }
     
     def get_posts(self, num_posts=6) -> list:
         posts = []
-        for post in self.profile.get_posts():
-            if len(posts) >= num_posts:
-                break
-            posts.append({                
-                "likes": post.likes,                
-                "caption": post.caption,
-                "date": post.date
-            })
+        ##
         return posts
     
     def get_profile_instance(self):
-        return self.profile
-    def get_loader_instance(self):
-        return self.loader
+        return self.profile    
     
 from google import genai
 class Gemini:
@@ -95,6 +108,7 @@ def index():
             }
         })
     except Exception as e:
+        print(f"Error: {e}")
         return jsonify({"error": str(e)}), 400
 
 if __name__ == '__main__': 
