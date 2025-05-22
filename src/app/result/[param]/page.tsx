@@ -99,8 +99,8 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-            <div className="row">
-                <div className="col-4">
+            <div className="row gy-3">
+                <div className="col-md-4">
                     <div className="card">
                         <div className="card-header">
                             <i className="bi bi-person-circle"></i> Profile @{data.body.profile.username}
@@ -132,7 +132,7 @@ export default function Home() {
                         </div>
                         </div>
                 </div>
-                <div className="col">
+                <div className="col-lg">
                     <div className="card">
                         <div className="card-header">
                             <i className="bi bi-lightbulb-fill"></i> Hasil Analyze
