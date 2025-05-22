@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 📸 IG Emotion Analyzer
 
-## Getting Started
+**IG Emotion Analyzer** adalah aplikasi berbasis web yang memungkinkan pengguna untuk menganalisis kepribadian seseorang berdasarkan profil Instagram mereka, menggunakan kecerdasan buatan (AI) dari **Gemini**. Cukup masukkan username Instagram, dan sistem akan melakukan scraping data publik dan memberikan ringkasan kepribadian secara otomatis.
 
-First, run the development server:
+---
+
+## ✨ Fitur Utama
+
+- 🔍 Scraping data profil Instagram (foto profil, bio, follower, dll)
+- 🧠 Analisis kepribadian berdasarkan data dengan AI Gemini
+- 📷 Menampilkan informasi pengguna dan profil dengan visual menarik
+- 📤 Share hasil analisis
+- ⚡ Cepat, ringan, dan bisa diakses dari browser manapun
+
+---
+
+## 🧱 Tech Stack
+
+- **Frontend**: [Next.js 14 (App Router)](https://nextjs.org/) + TypeScript
+- **Backend API**: Python (Flask via Vercel Serverless Function)
+- **Scraping**: [Apify Instagram Scraper](https://apify.com/shu8hvrXbJbY3Eb9W/instagram-scraper)
+- **AI**: [Gemini (Google AI)](https://deepmind.google/technologies/gemini/)
+- **Deployment**: [Vercel](https://vercel.com/)
+
+---
+
+## ⚙️ Setup dan Instalasi
+
+1. **Clone project**
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/username/ig-emotion-analyzer.git
+cd ig-emotion-analyzer
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. **Instalasi dependencies Next.js**
+```npm install```
+atau
+```yarn install```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. **Konfigurasi environment**
+Buat file .env.local dan tambahkan:
+```
+NEXT_PUBLIC_BASE_URL=http://localhost:3000
+APIFY_API_TOKEN=your_apify_token
+GEMINI_API_KEY=your_gemini_key
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. **Jalankan aplikasi**
+```npm run dev```
 
-## Learn More
+5. **(Opsional) Setup Python backend**
+# Jika kamu ingin menjalankan backend Flask API secara lokal:
+```
+cd api
+pip install -r requirements.txt
+python index.py
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 📦 Dependencies
+# Frontend
+- next
+- react
+- axios
+- tailwindcss
+- bootstrap
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Backend
+- flask
+- apify-client
+- python-dotenv
+- requests
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 👤 Author
+Made with ❤️ by [@bagusa4](https://github.com/bagusa4)
+🚀 Happy analyzing!
