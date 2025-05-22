@@ -12,6 +12,7 @@ class InstagramProfile:
         self.run = None
     
     def set_username(self, username): 
+        self.run = None
         self.username = username
 
     def fetch_profile(self):

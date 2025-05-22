@@ -24,8 +24,38 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'instagram.fagc3-2.fna.fbcdn.net',
         pathname: '/**',
-      }
-    ]
+      },
+      {
+        protocol: 'https',
+        hostname: 'scontent-det1-1.cdninstagram.com',
+        pathname: '/**',
+      },
+      {
+        protocol: "https",
+        hostname: "**.cdninstagram.com",
+      },
+      {
+        protocol: "https",
+        hostname: "instagram.com",
+      },
+      {
+        protocol: "https",
+        hostname: "scontent.cdninstagram.com",
+      },
+      {
+        protocol: "https",
+        hostname: "**.fbcdn.net",
+      },
+      {
+        protocol: "https",
+        hostname: "scontent-*.com",
+      },
+      {
+        protocol: "https",
+        hostname: "**.instagram.com",
+      },
+    ],
+    unoptimized: false,
   },
 };
 
